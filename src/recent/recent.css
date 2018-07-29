@@ -1,0 +1,15 @@
+#block-recent .recent-item {
+	margin-bottom: 10px;
+
+    border-bottom: 1px solid grey;
+    padding-bottom: 10px;
+
+}
+
+#block-recent .recent-list {
+	max-width: 95%;
+}
+
+#block-recent .recent-item .cost {
+	font-size: 1.5rem;
+}

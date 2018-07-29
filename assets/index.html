@@ -1,26 +1,84 @@
 <!Doctype html>                                                                             
 <html>
 <head>
-<title>Ledger</title>
-<meta charset="UTF-8" />
-<meta http-equiv="Pragma" content="no-cache">
-<meta name="renderer" content="webkit" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
-<script src="bundle.js"></script>
-<link rel="stylesheet" href="styles.css"/>
+	<title>Ledger</title>
+	<meta charset="UTF-8" />
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta name="renderer" content="webkit" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+	<script src="bundle.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-    <header><h1 id="logo"><img src="ledger.png"/>Ledger</h1></header>
+	<header class="navbar navbar-light bg-light">
+    	<a class="navbar-brand" href="#">
+    		<img src="ledger.png" width="30" height="30" />
+    		Ledger
+    	</a>
+    </header>
 
-    <main id="main-add">
-        <form>
-            <p><span>单价</span><input type="number" name="price" required/></p>
-            <p><span>数量</span><input type="number" name="count" value="1"/></p>
-            <p><span>花费</span><input type="number" disabled="" name="cost"></p>
-        </form>
-    </main>
+	<div class="container-fluid mt-2">
+	    <main id="main-add">
+	    	<h3 class="mt-3 mb-3 section-header">创建新纪录</h3>
+	    	<form id="form-add">
+	        	<div class="form-group">
+	            	<label for="add-input-title">标题</label>
+	            	<input class="form-control" type="text" name="title" id="add-input-title"/>
+	            </div>
+
+	            <div class="row">
+	            	<div class="form-group col">
+		            	<label>单价</label>
+		            	<input class="form-control" type="number" pattern="\d*" name="price" required/>
+	            	</div>
+	            	<div class="form-group col">
+		            	<label>数量</label>
+		            	<input class="form-control" type="number" pattern="\d*" name="count" value="1"/>
+	            	</div>
+	            	<div class="form-group col">
+	            	<label>花费</label>
+	            	<input class="form-control" type="number" readonly name="cost">
+	            	</div>
+	            </div>
+
+
+	            <div class="row">
+					<div class="form-group col">
+		            	<label>主分类</label>
+		            	<select id="select-cat" class="form-control" name="class">
+		            		<option value="">选择主分类</option>
+		            	</select>
+		            </div>
+		            <div class="form-group col">
+		            	<label>子分类</label>
+		            	<select id="select-sub_cat" class="form-control" name="sub_class">
+		            		<option value="">选择子分类</option>
+		            	</select>
+		            </div>
+	            </div>
+
+	            <div class="form-group">
+	            	<label>备注</label>
+	            	<textarea class="form-control" rows="3" name="remark"></textarea>
+	            </div>
+	            <input type="submit" class="btn btn-primary form-control" value="确认">
+	        </form>
+
+	        <hr>
+	        <h3 class="mt-3 mb-3 section-header">最近记录</h3>
+	        <div id="block-recent" >
+	        	<div class="recent-list container">
+	        	</div>
+	        </div>
+
+	        <hr>
+	        <h3 class="mt-3 mb-3 section-header">统计</h3>
+
+	    </main>
+    </div>
 
 </body>
 </html>
