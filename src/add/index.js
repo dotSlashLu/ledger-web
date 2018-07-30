@@ -61,7 +61,7 @@ function bindForm() {
 		// convert str to int
 		data["class"] = data["class"] ? parseInt(data["class"]) : null
 		data["sub_class"] = data["sub_class"] ? parseInt(data["sub_class"]) : null
-		data["cost"] = data["cost"] ? parseInt(data["cost"]) : null
+		data["cost"] = data["cost"] ? parseFloat(data["cost"]) : null
 
 		http.post(config.apiBase + "/expense", data)
 		.then(function (response) {
