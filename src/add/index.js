@@ -67,6 +67,7 @@ function bindForm() {
 		.then(function (response) {
 			// alert("记录成功")
 			getRecent()
+			$form.reset()
 		})
 		.catch(function (error) {
 			alert(error);
