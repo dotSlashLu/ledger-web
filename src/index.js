@@ -1,4 +1,5 @@
-import { ready } from "./utils/util"
+import "./models/category"
+
+import "./stat"
 import "./add"
 import "./recent"
-import "./models/category"

@@ -6,7 +6,7 @@ import category from "../models/category"
 import "./recent.css"
 
 const limit = 6
-var $block, $list
+var $block, $list, $rangeSelector
 
 function createWrapperEl() {
 	let $el = document.createElement("div")
@@ -53,18 +53,24 @@ function createEl($wrapper, r) {
 	$secondRow.appendChild($cat)
 	$secondRow.appendChild($time)
 
-
 	$wrapper.appendChild($firstRow)
 	$wrapper.appendChild($secondRow)
 }
 
-export function getRecent(offset = 0, clear = true) {
+const now = new Date()
+const timeRangeMap = {
+	2: new Date(now.setDate(now.getDate() - 3)),
+	3: new Date(now.setDate(now.getDate() - 7))
+}
+
+export function getRecent(rangeType = 2, clear = true) {
+	let from = timeRangeMap[rangeType].toISOString()
 	http.get(config.apiBase + "/expense", {
 		params: {
 			sortby: "create_time",
 			order: "desc",
-			offset: offset,
-			limit: limit
+			// limit: limit,
+			query: "create_time:>=:" + from
 		}
 	}).then(resp => {
 		if (clear) {
@@ -82,9 +88,18 @@ export function getRecent(offset = 0, clear = true) {
 	})
 }
 
+function bindRangeSelector() {
+	$rangeSelector.addEventListener("change", e => {
+		let rangeType = e.target.value
+		getRecent(rangeType, true)
+	})
+}
+
 ready(() => {
 	console.log("ready - recent")
 	$block = document.querySelector("#block-recent")
 	$list = $block.querySelector(".recent-list")
+	$rangeSelector = document.querySelector(".header-recent .select-range")
 	getRecent()
+	bindRangeSelector()
 })
