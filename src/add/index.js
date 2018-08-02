@@ -75,7 +75,7 @@ function bindForm() {
 	});
 }
 
-function init() => {
+function init() {
     let path = window.location.pathname
     if (!path.endsWith("/") && !path.endsWith("/index.html"))
         return

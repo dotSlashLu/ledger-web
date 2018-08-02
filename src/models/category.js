@@ -7,11 +7,11 @@ class Category {
 		this.subCatMap = {}
 		this.map = {}
 		this.loaded = false
-		this.promise = this.load()
+		this.load = this.load.bind(this)
 	}
 
 	load() {
-		return http.get(config.apiBase + '/expense_class')
+		this.promise = http.get(config.apiBase + '/expense_class')
 		.then(response => {
 			this.raw = response.data
 			response.data.map(cat => {
@@ -21,17 +21,18 @@ class Category {
 						this.map[c.id] = c
 					})
 				this.subCatMap[cat.class.id] = cat.children
-				let $option = document.createElement("option")
-				$option.value = cat.class.id
-				$option.innerHTML = cat.class.name
-				return $option
+				// let $option = document.createElement("option")
+				// $option.value = cat.class.id
+				// $option.innerHTML = cat.class.name
+				// return $option
 			})
-			console.log("category loaded", this)
 			this.loaded = true
 		})
 		.catch(function (error) {
 			alert(error)
 		})
+
+		return this.promise
 	}
 }
 

@@ -24,34 +24,59 @@ function formatTime(t) {
 	return t.toLocaleTimeString("zh-cn", options)
 }
 
-function readyFor(callback/*, pathname, ...*/) {
+function readyFor(callback, ...urls) {
     if (arguments.length == 1)
         return ready(callback)
 
     let pathname = window.location.pathname
-    for (var i = 1; i < arguments.length; i++) {
-        let path = arguments[i]
-        // console.log("test against", path)
-        if (pathname.endsWith(path))
+    console.log(urls)
+    urls.forEach(url => {
+        if (pathname.endsWith(url))
             return ready(callback)
-    }
+    })
 }
 
 /*
 [
     {
-        path: ["index.html", "/"]
+        paths: ["index.html", "/"]
         modules: [initA, initB],
         before: [promiseA, promiseB]
     }, ...
 ]
 */
-class Route() {
+class Route {
     constructor(routeConfig) {
         this.config = routeConfig
+        this.init()
     }
 
+    init() {
+        console.debug("init router")
+        this.config.forEach(route => {
+            console.debug("init route", route)
+            let urlCB = () => {
+                console.debug("url cb")
+
+                if (route.before) { 
+                    route.beforePromises = route.before.map(b => {return b()})
     
+                    return Promise.all(route.beforePromises).then(() => {
+                        route.modules.forEach(m => {
+                            console.debug("should load module")
+                            m()
+                        })
+                    })
+                }
+
+                route.modules.forEach(m => {
+                    console.debug("should load module")
+                    m()
+                })
+            }
+            readyFor(urlCB, ...route.paths)
+        })
+    }
 }
 
-export { ready, readyFor, formatTime }
+export { ready, readyFor, formatTime, Route }
