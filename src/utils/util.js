@@ -24,4 +24,34 @@ function formatTime(t) {
 	return t.toLocaleTimeString("zh-cn", options)
 }
 
-export { ready, formatTime }
+function readyFor(callback/*, pathname, ...*/) {
+    if (arguments.length == 1)
+        return ready(callback)
+
+    let pathname = window.location.pathname
+    for (var i = 1; i < arguments.length; i++) {
+        let path = arguments[i]
+        // console.log("test against", path)
+        if (pathname.endsWith(path))
+            return ready(callback)
+    }
+}
+
+/*
+[
+    {
+        path: ["index.html", "/"]
+        modules: [initA, initB],
+        before: [promiseA, promiseB]
+    }, ...
+]
+*/
+class Route() {
+    constructor(routeConfig) {
+        this.config = routeConfig
+    }
+
+    
+}
+
+export { ready, readyFor, formatTime }
