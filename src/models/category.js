@@ -11,6 +11,7 @@ class Category {
 	}
 
 	load() {
+		console.log("load cat")
 		this.promise = http.get(config.apiBase + '/expense_class')
 		.then(response => {
 			this.raw = response.data
@@ -29,7 +30,11 @@ class Category {
 			this.loaded = true
 		})
 		.catch(function (error) {
-			alert(error)
+			if (error.response && error.response.status == 405) {
+				console.log("unauthorized, should be redirected to login soon")
+				return
+		    }
+		    alert(error)
 		})
 
 		return this.promise

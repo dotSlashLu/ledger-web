@@ -3,7 +3,6 @@ const http = require("axios")
 import config from "../config"
 
 export default () => {
-	console.log("validate user status ", config.apiBase + "/user/status")
 	return http.get(config.apiBase + "/user/status")
 	.then(resp => {
 		if (!resp.data.login && !window.location.pathname.endsWith("login.html"))

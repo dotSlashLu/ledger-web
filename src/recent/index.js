@@ -83,8 +83,13 @@ export function getRecent(rangeType = 2, clear = true) {
 			createEl($wrapper, r)
 			$list.appendChild($wrapper)
 		})
-	}).catch(e => {
-		alert(e)
+	})
+	.catch(e => {
+		if (e.response && e.response.status == 405) {
+			console.log("unauthorized, should be redirected to login soon")
+			return
+	    }
+	    alert(e)
 	})
 }
 

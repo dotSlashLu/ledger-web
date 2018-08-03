@@ -59,9 +59,13 @@ function renderCat() {
 
         chart.setOption(option)
     })
-    .catch(err => {
-        alert("failed to render cat: " + err)
-        console.error(err)
+    .catch(e => {
+        if (e.response && e.response.status == 405) {
+            console.log("unauthorized, should be redirected to login soon")
+            return
+        }
+        console.error("failed to render cat", e)
+        alert("failed to render cat")
     })
 }
 
@@ -159,8 +163,13 @@ function renderOverview() {
         $avg.innerHTML = data.cost_daily_avg
         $sum.innerHTML = data.cost_sum
         $predict.innerHTML = data.cost_daily_avg * 31
-    }).catch(err => {
-        alert("render overview failed:" + err)
+    }).catch(e => {
+        if (e.response && e.response.status == 405) {
+            console.log("unauthorized, should be redirected to login soon")
+            return
+        }
+        console.error("failed to render overview", e)
+        alert("failed to render overview")
     })
 }
 
