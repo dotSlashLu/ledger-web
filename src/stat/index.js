@@ -42,7 +42,7 @@ function renderCat() {
             series: [{
                 type: 'pie',
                 data: data,
-                radius: ['25%', '75%'],
+                radius: ['25%', '70%'],
                 labelLine: {
                     normal: {
                         show: true
@@ -51,7 +51,8 @@ function renderCat() {
                 label: {
                     normal: {
                         show: true,
-                        position: 'inside'
+                        position: 'outside',
+                        formatter: '{b}\n{c}\n{d}%'
                     }
                 }
             }]
@@ -116,7 +117,11 @@ function renderTrend() {
                 // name:'直接访问',
                 type:'bar',
                 barWidth: '60%',
-                data: y
+                data: y,
+                label: {
+                    show: true,
+                    position: "top"
+                }
             }]
         }
         chart.setOption(option)
@@ -160,9 +165,9 @@ function renderOverview() {
         let $avg = $overviewBlock.querySelector(".overview-stat.avg"),
             $sum = $overviewBlock.querySelector(".overview-stat.sum"),
             $predict = $overviewBlock.querySelector(".overview-stat.predict")
-        $avg.innerHTML = data.cost_daily_avg
+        $avg.innerHTML = data.cost_daily_avg.toFixed(2)
         $sum.innerHTML = data.cost_sum
-        $predict.innerHTML = data.cost_daily_avg * 31
+        $predict.innerHTML = (data.cost_daily_avg * 31).toFixed(2)
     }).catch(e => {
         if (e.response && e.response.status == 405) {
             console.log("unauthorized, should be redirected to login soon")
@@ -187,9 +192,6 @@ function bindOverviewRangeToggle() {
 }
 
 function init() {
-    let path = window.location.pathname
-    if (!path.endsWith("/") && !path.endsWith("/index.html"))
-        return
     console.log("stat ready")
     $overviewBlock = document.querySelector("#block-overview")
     $statBlock = document.querySelector("#block-stat")
@@ -201,17 +203,3 @@ function init() {
 }
 
 export default init
-
-// ready(() => {
-//     let path = window.location.pathname
-//     if (!path.endsWith("/") && !path.endsWith("/index.html"))
-//         return
-//     console.log("stat ready")
-//     $overviewBlock = document.querySelector("#block-overview")
-//     $statBlock = document.querySelector("#block-stat")
-
-//     bindOverviewRangeToggle()
-//     renderOverview()
-//     renderCat()
-//     renderTrend()
-// })

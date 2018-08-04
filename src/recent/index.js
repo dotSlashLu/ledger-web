@@ -101,9 +101,6 @@ function bindRangeSelector() {
 }
 
 function init() {
-    let path = window.location.pathname
-    if (!path.endsWith("/") && !path.endsWith("/index.html"))
-        return
 	console.log("ready - recent")
 	$block = document.querySelector("#block-recent")
 	$list = $block.querySelector(".recent-list")
@@ -113,15 +110,3 @@ function init() {
 }
 
 export default init
-
-// ready(() => {
-//     let path = window.location.pathname
-//     if (!path.endsWith("/") && !path.endsWith("/index.html"))
-//         return
-// 	console.log("ready - recent")
-// 	$block = document.querySelector("#block-recent")
-// 	$list = $block.querySelector(".recent-list")
-// 	$rangeSelector = document.querySelector(".header-recent .select-range")
-// 	getRecent()
-// 	bindRangeSelector()
-// })

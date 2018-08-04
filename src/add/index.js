@@ -76,9 +76,6 @@ function bindForm() {
 }
 
 function init() {
-    let path = window.location.pathname
-    if (!path.endsWith("/") && !path.endsWith("/index.html"))
-        return
 	$form = document.querySelector("#form-add")
 	$price = $form.querySelector("input[name=price]")
 	$count = $form.querySelector("input[name=count]")
@@ -92,19 +89,3 @@ function init() {
 }
 
 export default init
-
-// ready(() => {
-//     let path = window.location.pathname
-//     if (!path.endsWith("/") && !path.endsWith("/index.html"))
-//         return
-// 	$form = document.querySelector("#form-add")
-// 	$price = $form.querySelector("input[name=price]")
-// 	$count = $form.querySelector("input[name=count]")
-// 	$cost = $form.querySelector("input[name=cost]")
-// 	$cat = $form.querySelector("#select-cat")
-// 	$subCat = $form.querySelector("#select-sub_cat")
-// 	bindTotal()
-// 	bindCat()
-// 	loadCategories()
-// 	bindForm()
-// })
