@@ -162,9 +162,11 @@ function renderOverview() {
         }
     }).then(resp => {
         const data = resp.data
-        let $avg = $overviewBlock.querySelector(".overview-stat.avg"),
+        let $today = $overviewBlock.querySelector(".overview-stat.today"),
+            $avg = $overviewBlock.querySelector(".overview-stat.avg"),
             $sum = $overviewBlock.querySelector(".overview-stat.sum"),
             $predict = $overviewBlock.querySelector(".overview-stat.predict")
+        $today.innerHTML = data.today_sum.toFixed(2)
         $avg.innerHTML = data.cost_daily_avg.toFixed(2)
         $sum.innerHTML = data.cost_sum
         $predict.innerHTML = (data.cost_daily_avg * 31).toFixed(2)
