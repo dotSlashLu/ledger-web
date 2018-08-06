@@ -70,9 +70,9 @@ function bindForm() {
 			$form.reset()
 		})
 		.catch(function (error) {
-			alert(error);
-		});
-	});
+			alert(error)
+		})
+	})
 }
 
 function init() {

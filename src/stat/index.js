@@ -7,6 +7,7 @@ require('echarts/lib/component/title')
 import { ready } from "../utils/util"
 import config from "../config"
 import category from "../models/category"
+import chartOptions from "./chart_options"
 
 import "./stat.css"
 
@@ -33,32 +34,8 @@ function renderCat() {
         let chart = echarts.init(
             $statBlock.querySelector(".stat-chart.cat-group")
         )
-        let option = {
-            title: {
-                text: '',
-                left: '50%',
-            },
-            // color:['#f6da22','#bbe2e8','#6cacde','#1cadde','#3cadde'],
-            series: [{
-                type: 'pie',
-                data: data,
-                radius: ['25%', '70%'],
-                labelLine: {
-                    normal: {
-                        show: true
-                    }
-                },
-                label: {
-                    normal: {
-                        show: true,
-                        position: 'outside',
-                        formatter: '{b}\n{c}\n{d}%'
-                    }
-                }
-            }]
-        }
 
-        chart.setOption(option)
+        chart.setOption(chartOptions.catPie(data))
     })
     .catch(e => {
         if (e.response && e.response.status == 405) {
@@ -91,40 +68,7 @@ function renderTrend() {
         let chart = echarts.init(
             $statBlock.querySelector(".stat-chart.month-group")
         )
-        // http://gallery.echartsjs.com/editor.html?c=bar-tick-align
-        let option = {
-            // color: ['#3398DB'],
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            xAxis : [{
-                type : 'category',
-                data : x,
-                axisTick: {
-                    alignWithLabel: true
-                }
-            }],
-            yAxis : [{
-                type : 'value',
-                axisLabel: {
-                    show: true
-                }
-            }],
-            series : [{
-                // name:'直接访问',
-                type:'bar',
-                barWidth: '60%',
-                data: y,
-                label: {
-                    show: true,
-                    position: "top"
-                }
-            }]
-        }
-        chart.setOption(option)
+        chart.setOption(chartOptions.monthBar(x, y))
     })
 }
 
