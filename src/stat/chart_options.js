@@ -17,7 +17,7 @@ function catPie(data) {
             label: {
                 normal: {
                     show: true,
-                    position: 'outside',
+                    position: 'inside',
                     formatter: '{b}\n{c}\n{d}%'
                 }
             }

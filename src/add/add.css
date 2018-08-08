@@ -1,0 +1,12 @@
+#block-create .cat {
+	display: inline-block;
+	padding: 2px 10px;
+	border: 1px solid #007bff;
+	margin: 2px;
+	border-radius: 10px;
+}
+
+#block-create .cat.active {
+	border-color: #04baa7;
+	border-width: 2px;
+}
